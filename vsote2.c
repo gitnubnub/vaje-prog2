@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int nacini(int n, int k, int* p, int j) {
+void nacini(int n, int k, int* p, int j) {
     if (n < k) {
         k = n;
     }
 
     if (k == 0) {
         if (n > 0) {
-            return 0;
+            return;
         }
 
         for (int i = 0; i < j; i++) {
@@ -18,7 +18,7 @@ int nacini(int n, int k, int* p, int j) {
             printf("%d", p[i]);
         }
         printf("\n");
-        return 1;
+        return;
     }
 
     p[j] = k;
@@ -26,7 +26,7 @@ int nacini(int n, int k, int* p, int j) {
     p[j] = 0;
     nacini(n, k - 1, p, j);
 
-    return 0;
+    return;
 }
 
 int main() {
