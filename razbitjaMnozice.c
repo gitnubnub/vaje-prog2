@@ -1,5 +1,3 @@
-//3. in 10. testni primer je vrglo sysmalloc: Assertion failed
-
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -33,7 +31,7 @@ int main() {
     scanf("%d", &n);
 
     int* t = (int*) calloc(n, sizeof(int));
-    int* izbrani = (int*) calloc(n, sizeof(int));
+    int* izbrani = (int*) calloc(n + 1, sizeof(int));
 
     long vsota = 0;
 	for (int i = 0; i < n; i++) {
