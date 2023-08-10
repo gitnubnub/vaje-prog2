@@ -6,7 +6,7 @@
 
 #include "naloga.h"
 
-int vsotaI(Vozlisce* zacetek) {
+/*int vsotaI(Vozlisce* zacetek) {
     int vsota = 0;
     if (zacetek == NULL) {
         return vsota;
@@ -78,6 +78,66 @@ Vozlisce* vstaviUrejenoR(Vozlisce* zacetek, int element) {
         novo -> naslednje = zacetek;
         zacetek = novo;
         return zacetek;
+    }
+
+    zacetek -> naslednje = vstaviUrejenoR(zacetek -> naslednje, element);
+    return zacetek;
+}*/
+
+//optimizirana rešitev (krajša koda):
+
+int vsotaI(Vozlisce* zacetek) {
+    int vsota = 0;
+
+    Vozlisce* trenutno = zacetek;
+    while (trenutno != NULL) {
+        vsota += trenutno -> podatek;
+        trenutno = trenutno -> naslednje;
+    }
+
+    return vsota;
+}
+
+int vsotaR(Vozlisce* zacetek) {
+    if (zacetek == NULL) {
+        return 0;
+    }
+
+    return zacetek -> podatek + vsotaR(zacetek -> naslednje);
+}
+
+Vozlisce* vstaviUrejenoI(Vozlisce* zacetek, int element) {
+    if (zacetek == NULL || element <= zacetek -> podatek) {
+        Vozlisce* novo = (Vozlisce*) calloc(1, sizeof(Vozlisce));
+        novo -> podatek = element;
+        novo -> naslednje = zacetek;
+        return novo;
+    } else {
+        Vozlisce* prejsnje = zacetek;
+        Vozlisce* trenutno = zacetek -> naslednje;
+        while (trenutno != NULL) {
+            if (element <= trenutno -> podatek) {
+                break;
+            }
+
+            prejsnje = trenutno;
+            trenutno = trenutno -> naslednje;
+        }
+
+        Vozlisce* novo = (Vozlisce*) calloc(1, sizeof(Vozlisce));
+        novo -> podatek = element;
+        novo -> naslednje = trenutno;
+        prejsnje -> naslednje = novo;
+        return zacetek;
+    }
+}
+
+Vozlisce* vstaviUrejenoR(Vozlisce* zacetek, int element) {
+    if (zacetek == NULL || element <= zacetek -> podatek) {
+        Vozlisce* novo = (Vozlisce*) calloc(1, sizeof(Vozlisce));
+        novo -> podatek = element;
+        novo -> naslednje = zacetek;
+        return novo;
     }
 
     zacetek -> naslednje = vstaviUrejenoR(zacetek -> naslednje, element);
