@@ -1,4 +1,4 @@
-
+//dela samo 27 testnih primerov (do 26. + 28.)
 /*
  * Zagon testne skripte ("sele potem, ko ste prepri"cani, da program deluje!):
  *
