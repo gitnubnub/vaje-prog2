@@ -1,4 +1,4 @@
-
+//dela 32 (kinda random) testnih primerov, ostali segementation fault
 /*
  * Zagon testne skripte ("sele potem, ko ste prepri"cani, da program deluje!):
  *
