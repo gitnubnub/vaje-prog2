@@ -1,4 +1,4 @@
-//dela samo 27 testnih primerov (do 26. + 28.)
+
 /*
  * Zagon testne skripte ("sele potem, ko ste prepri"cani, da program deluje!):
  *
@@ -23,11 +23,11 @@ long kvRazdalja(int** koordinate, int i1, int i2) {
     return (x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1);
 }
 
-void moznePoti(int n, long k, int** koordinate, int* pot, int indeks) {
+void moznePoti(int n, long k, int** koordinate, int* pot, int indeks, int poteza) {
     if (indeks == n - 1) {
-        for (int i = 0; i < n - 1; i++) {
-            if (pot[i] == 1) {
-                printf("%d->", i);
+        for (int i = 0; i < poteza - 1; i++) {
+            if (i == 0 || pot[i] != 0) {
+                printf("%d->", pot[i]);
             }
         }
 
@@ -39,12 +39,10 @@ void moznePoti(int n, long k, int** koordinate, int* pot, int indeks) {
     for (int i = 1; i < n; i++) {
         long doKamna2 = kvRazdalja(koordinate, indeks, i);
         long novaCilj2 = kvRazdalja(koordinate, i, n - 1);
-        if (pot[i] != 1) {
-            if (k >= doKamna2 && novaCilj2 < doCilja2) {
-                pot[i] = 1;
-                moznePoti(n, k, koordinate, pot, i);
-                pot[i] = 0;
-            }
+        if (k >= doKamna2 && novaCilj2 < doCilja2) {
+            pot[poteza] = i;
+            moznePoti(n, k, koordinate, pot, i, poteza + 1);
+            pot[poteza] = 0;
         }
     }
 
@@ -61,13 +59,17 @@ int main() {
     koordinate[1] = (int*) calloc(n, sizeof(int));
 
     for (int i = 0; i < n; i++) {
-        scanf("%d%d", &koordinate[0][i], &koordinate[1][i]);
+        int x = 0;
+        int y = 0;
+        scanf("%d%d", &x, &y);
+        koordinate[0][i] = x;
+        koordinate[1][i] = y;
     }
 
     int* pot = (int*) calloc(n, sizeof(int));
-    pot[0] = 1;
+    pot[0] = 0;
     long k = (long) K * (long) K;
-    moznePoti(n, k, koordinate, pot, 0);
+    moznePoti(n, k, koordinate, pot, 0, 1);
     
     free(koordinate[0]);
     free(koordinate[1]);
