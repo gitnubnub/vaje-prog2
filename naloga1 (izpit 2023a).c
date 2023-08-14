@@ -1,4 +1,4 @@
-//dela 32 (kinda random) testnih primerov, ostali segementation fault
+
 /*
  * Zagon testne skripte ("sele potem, ko ste prepri"cani, da program deluje!):
  *
@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     FILE* input = fopen(argv[1], "rb");
     FILE* output = fopen(argv[2], "wb");
 
-    int* tabela = (int*) calloc(10001, sizeof(int));
+    int* tabela = (int*) calloc(100000, sizeof(int));
     int dolzina = 0;
     int stevilo = fgetc(input);
 
