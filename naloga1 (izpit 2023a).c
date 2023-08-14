@@ -19,17 +19,19 @@ int main(int argc, char** argv) {
 
     int* tabela = (int*) calloc(10001, sizeof(int));
     int dolzina = 0;
-    int stevilo = 0;
+    int stevilo = fgetc(input);
 
-    while (fread(&tabela[dolzina], sizeof(unsigned char), 1, input) != 1) {
+    while (stevilo != EOF) {
+        tabela[dolzina] = stevilo;
         dolzina++;
+        stevilo = fgetc(input);
     }
 
     for (int i = 0; i < dolzina; i++) {
         if (i + 1 < dolzina && tabela[i] == 0x1B && tabela[i + 1] == 0xC9) {
             i++;
         }
-        fwrite(&tabela[i], sizeof(unsigned char), 1, output);
+        fputc(tabela[i], output);
     }
 
     fclose(input);
